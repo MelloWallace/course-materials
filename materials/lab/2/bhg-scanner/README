@@ -1,0 +1,24 @@
+Explanation: This program scans for available ports. It will scan for ports by using the worker method to open and test the port, then it will close the port. It will
+maintain a list of open and closed ports as well.
+
+Changes:
+An explanation has been added on how to run the program(both scanner test and main)
+
+Dial has been changed to DialTimeout with a timeout of 21 seconds.
+
+Added a variable, closed ports to track the closed ports, also made sure
+to add any clsoed ports to the list with a loop.
+
+Changed the ports from 100 to 111.
+
+Printed out the closed ports and the open ports, and a string containting the length
+of both variables.
+
+Returned both the length of the closed ports and the open ports.
+
+Changed the scanner test to test the closed ports and modified all tests to
+handle the new port scanner method.
+
+Changed the port scanner method to take in a variable rather than being null
+modified all files to accomodate the changes and constructed a variable of ints with 
+a hard coded length of 1024..
