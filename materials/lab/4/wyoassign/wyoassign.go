@@ -19,6 +19,7 @@ type Assignment struct {
 	Title string `json:"title`
 	Description string `json:"desc"`
 	Points int `json:"points"`
+	DueDate string `json:"DueDate"`
 }
 
 var Assignments []Assignment
@@ -30,6 +31,7 @@ func InitAssignments(){
 	assignmnet.Title = "Lab 4 "
 	assignmnet.Description = "Some lab this guy made yesteday?"
 	assignmnet.Points = 20
+	assignmnet.DueDate = "Friday"
 	Assignments = append(Assignments, assignmnet)
 }
 
@@ -102,12 +104,19 @@ func DeleteAssignment(w http.ResponseWriter, r *http.Request) {
 func UpdateAssignment(w http.ResponseWriter, r *http.Request) {
 	log.Printf("Entering %s end point", r.URL.Path)
 	w.Header().Set("Content-Type", "application/json")
-	
-	var response Response
-	response.Assignments = Assignments
-
-
-
+	r.ParseForm()
+	if(r.FormValue("id") != ""){
+		for i := 0; i < len(Assignments); i++ {
+			if (Assignments[i].Id == r.FormValue("id")) {	
+				Assignments[i].Id =  r.FormValue("id")
+				Assignments[i].Title =  r.FormValue("title")
+				Assignments[i].Description =  r.FormValue("desc")
+				Assignments[i].Points, _ =  strconv.Atoi(r.FormValue("points"))
+				Assignments[i].DueDate =  r.FormValue("DueDate")
+			}
+		}
+		w.WriteHeader(http.StatusCreated)
+	}
 }
 
 func CreateAssignment(w http.ResponseWriter, r *http.Request) {
@@ -121,9 +130,10 @@ func CreateAssignment(w http.ResponseWriter, r *http.Request) {
 		assignmnet.Title =  r.FormValue("title")
 		assignmnet.Description =  r.FormValue("desc")
 		assignmnet.Points, _ =  strconv.Atoi(r.FormValue("points"))
+		assignmnet.DueDate =  r.FormValue("dueDate")
 		Assignments = append(Assignments, assignmnet)
 		w.WriteHeader(http.StatusCreated)
 	}
 	w.WriteHeader(http.StatusNotFound)
-
+	
 }

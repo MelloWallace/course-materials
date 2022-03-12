@@ -19,8 +19,8 @@ func main() {
 	router.HandleFunc("/assignments", wyoassign.GetAssignments).Methods("GET")
 	router.HandleFunc("/assignment/{id}", wyoassign.GetAssignment).Methods("GET")
 	router.HandleFunc("/assignment/{id}", wyoassign.DeleteAssignment).Methods("DELETE")		
-	router.HandleFunc("/assignment", wyoassign.CreateAssignment).Methods("POST")	
-	// router.HandleFunc("/assignments/{id}", wyoassign.UpdateAssignment).Methods("PUT")
+	router.HandleFunc("/assignment/Create", wyoassign.CreateAssignment).Methods("POST")	
+	router.HandleFunc("/assignments/{id}", wyoassign.UpdateAssignment).Methods("PUT")
 
 	http.Handle("/", router)
 
